@@ -2,6 +2,7 @@
 
 namespace Mission06_Tew.Models
 {
+    //Get/set form info
     public class Application
     {
         [Key]
