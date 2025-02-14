@@ -5,6 +5,7 @@ namespace Mission06_Tew.Models
     public class Application
     {
         [Key]
+        [Required]
         public int ApplicationID { get; set; }
 
         [Required]
@@ -22,11 +23,11 @@ namespace Mission06_Tew.Models
         [Required]
         public string Rating { get; set; }
 
-        public bool Edited { get; set; }
+        public bool? Edited { get; set; }
 
-        public string Lent_To {  get; set; }
+        public string? Lent_To {  get; set; }
 
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
     }
 }
