@@ -4,12 +4,15 @@
 @{
 }
 
-@model Application
+@model Movie
 
 <h1>Here's a form to add a moive to the list!</h1>
-<form method="post" asp-action="MovieForm">
-    <label asp-for="Category">Category:</label>
-    <input asp-for="Category"required />
+<form method="post">
+
+    <input type="hidden" asp-for="MovieId" />
+
+    <label asp-for="Category.CategoryName">Category:</label>
+    <input asp-for="Category.CategoryName" />
     <br />
 
     <label asp-for="Title">Title:</label>
@@ -17,15 +20,15 @@
     <br />
 
     <label asp-for="Year">Year:</label>
-    <input asp-for="Year" required />
+    <input asp-for="Year" min="1888" required />
     <br />
 
     <label asp-for="Director">Director:</label>
-    <input asp-for="Director" required />
+    <input asp-for="Director" />
     <br />
 
     <label asp-for="Rating">Rating:</label>
-    <select asp-for="Rating" required>
+    <select asp-for="Rating">
         <option value="">-- Select a Rating --</option>
         <option value="G">G</option>
         <option value="PG">PG</option>
@@ -42,8 +45,16 @@
     </select>
     <br />
 
-    <label asp-for="Lent_To">Lent to:</label>
-    <input asp-for="Lent_To"/>
+    <label asp-for="LentTo">Lent to:</label>
+    <input asp-for="LentTo"/>
+    <br />
+
+    <label asp-for="CopiedToPlex">Copied to Plex?(Yes/No)</label>
+    <select asp-for="CopiedToPlex">
+        <option value="">-- Select an Option --</option>
+        <option value="True">Yes</option>
+        <option value="False">No</option>
+    </select>
     <br />
 
     <label asp-for="Notes">Notes (25 characters max):</label>

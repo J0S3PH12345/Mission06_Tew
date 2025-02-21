@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Mission06_Tew.Models;
 
 namespace Mission06_Tew.Controllers
@@ -8,8 +9,8 @@ namespace Mission06_Tew.Controllers
     {
         private MovieCollectionContext _context;
         public HomeController(MovieCollectionContext temp) //Constructor
-        { 
-            _context= temp;
+        {
+            _context = temp;
         }
         public IActionResult Index()
         {
@@ -28,12 +29,62 @@ namespace Mission06_Tew.Controllers
         }
 
         [HttpPost]
-        public IActionResult MovieForm(Application response)
+        public IActionResult MovieForm(Movie response)
         {
-            _context.Applications.Add(response); //Add record to the database
+            _context.Movies.Add(response); //Add record to the database
             _context.SaveChanges();
             return View("Confirmation", response);
         }
 
+        public IActionResult FullCollection()
+        {
+            var movieList = _context.Movies
+                .Include(x => x.Category)
+                .OrderBy(x => x.Title)
+                .ToList();
+
+            return View(movieList);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int movieId)
+        {
+            var recordToEdit = _context.Movies
+                .Single(x => x.MovieId == movieId);
+
+            ViewBag.Category = _context.Categories
+                .OrderBy(x => x.CategoryName)
+                .ToList();
+
+
+            return View("MovieForm", recordToEdit);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Movie updatedMovie)
+        {
+            _context.Update(updatedMovie);
+            _context.SaveChanges();
+            return RedirectToAction("FullCollection");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int movieId)
+        {
+            var recordToDelete = _context.Movies
+                .Single(x => x.MovieId == movieId);
+
+            return View(recordToDelete);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Movie deletedMovie)
+        {
+            _context.Movies.Remove(deletedMovie);
+            _context.SaveChanges();
+
+            return RedirectToAction("FullCollection");
+        }
     }
+
 }
