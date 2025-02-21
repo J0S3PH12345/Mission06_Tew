@@ -35,7 +35,7 @@ namespace Mission06_Tew.Controllers
             _context.SaveChanges();
             return View("Confirmation", response);
         }
-
+        //See full collection
         public IActionResult FullCollection()
         {
             var movieList = _context.Movies
@@ -46,6 +46,7 @@ namespace Mission06_Tew.Controllers
             return View(movieList);
         }
 
+        //Edit Get Request
         [HttpGet]
         public IActionResult Edit(int movieId)
         {
@@ -60,6 +61,7 @@ namespace Mission06_Tew.Controllers
             return View("MovieForm", recordToEdit);
         }
 
+        //Edit Post request
         [HttpPost]
         public IActionResult Edit(Movie updatedMovie)
         {
@@ -68,6 +70,7 @@ namespace Mission06_Tew.Controllers
             return RedirectToAction("FullCollection");
         }
 
+        //Delete Get Request
         [HttpGet]
         public IActionResult Delete(int movieId)
         {
@@ -77,6 +80,7 @@ namespace Mission06_Tew.Controllers
             return View(recordToDelete);
         }
 
+        //Delete Post request
         [HttpPost]
         public IActionResult Delete(Movie deletedMovie)
         {

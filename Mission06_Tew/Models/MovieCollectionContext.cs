@@ -12,6 +12,7 @@ namespace Mission06_Tew.Models
 
         public DbSet<Movie> Movies { get; set; }
 
+        //Connect Categories table
         public DbSet<Category> Categories { get; set; }
     }
 }
